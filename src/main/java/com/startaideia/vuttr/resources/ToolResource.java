@@ -1,8 +1,6 @@
 package com.startaideia.vuttr.resources;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,102 +14,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.startaideia.vuttr.dto.ToolDTO;
-import com.startaideia.vuttr.entities.Tag;
-import com.startaideia.vuttr.entities.TagsToTools;
-import com.startaideia.vuttr.entities.Tool;
-import com.startaideia.vuttr.repositories.TagRepository;
-import com.startaideia.vuttr.repositories.TagsToToolsRepository;
-import com.startaideia.vuttr.repositories.ToolRepository;
+import com.startaideia.vuttr.services.ToolService;
 
 @RestController
 @RequestMapping(value = "/tools")
 public class ToolResource {
 	
 	@Autowired
-	private ToolRepository toolRepositoriy;
-	
-	@Autowired
-	private TagRepository tagRepository;
-	
-	@Autowired
-	private TagsToToolsRepository tagsToToolsRepository;
+	private ToolService toolService;
 	
 	@GetMapping
-	public ResponseEntity<List<ToolDTO>> findAll() {
-		List<Tool> tools = toolRepositoriy.findAll();
-		List<String> tags;
-		List<ToolDTO> toolsDTO = new ArrayList<>();
-		ToolDTO toolDTO;
-		
-		for(Tool tool : tools) {
-			tags = new ArrayList<>();
-			for(TagsToTools tagToTool : tool.getTagsToTools()) {				
-				tags.add(tagToTool.getTags().getName());				
-			}
-			
-			toolDTO = new ToolDTO(tool);
-			toolDTO.setTags(tags);
-			toolsDTO.add(toolDTO);
-		}		
-		return ResponseEntity.ok(toolsDTO);		
+	public ResponseEntity<List<ToolDTO>> findAll() {		
+		return ResponseEntity.ok(toolService.findAll());		
 	}
 
 	@GetMapping("/tag/{tag}")
-	public ResponseEntity<List<ToolDTO>> findByTagName(@PathVariable String tag) {
-		List<Tool> tools = toolRepositoriy.findToolsByTagName(tag);
-		List<String> tags = new ArrayList<>();
-		List<ToolDTO> toolsDTO = new ArrayList<>();
-		ToolDTO toolDTO;
-		
-		for(Tool tool : tools) {
-			tags = new ArrayList<>();
-			for(TagsToTools tagToTool : tool.getTagsToTools()) {
-				tags.add(tagToTool.getTags().getName());				
-			}
-			
-			toolDTO = new ToolDTO(tool);
-			toolDTO.setTags(tags);
-			toolsDTO.add(toolDTO);
-		}		
-		return ResponseEntity.ok(toolsDTO);		
+	public ResponseEntity<List<ToolDTO>> findByTagName(@PathVariable String tag) {	
+		return ResponseEntity.ok(toolService.findByTagName(tag));		
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity delete(@PathVariable Long id) {		
-		toolRepositoriy.deleteTagsToToolsForIdTool(id);
-		toolRepositoriy.deleteById(id);
+		toolService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@PostMapping( consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})	
-	public ResponseEntity<ToolDTO> save(@RequestBody ToolDTO toolDTO) {
-		Tag tagExists;
-		Tool tool;
-		TagsToTools tagsToTools;
-		List<String> tags = new ArrayList<String>();  
-		
-				
-		tool = toolRepositoriy.save(new Tool(toolDTO));
-		
-		for (String t : toolDTO.getTags()) {
-			tagExists = tagRepository.fingByTagName(t);
-			
-			if(tagExists == null) {
-				tagExists = new Tag();
-				tagExists.setName(t);				
-				tagExists = tagRepository.save(tagExists);				
-			}
-			
-			tagsToTools = new TagsToTools();
-			tagsToTools.setTags(tagExists);
-			tagsToTools.setTool(tool);
-			
-			tagsToToolsRepository.save(tagsToTools);
-			tags.add(tagExists.getName());
-		}		
-		
-		toolDTO = new ToolDTO(tool);
-		toolDTO.setTags(tags);
-		return new ResponseEntity(toolDTO, HttpStatus.CREATED);
+	public ResponseEntity<ToolDTO> save(@RequestBody ToolDTO toolDTO) {		
+		return new ResponseEntity<ToolDTO>(toolService.save(toolDTO), HttpStatus.CREATED);
 	}
 }
