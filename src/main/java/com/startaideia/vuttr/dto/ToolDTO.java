@@ -2,6 +2,8 @@ package com.startaideia.vuttr.dto;
 
 import java.util.List;
 
+import com.startaideia.vuttr.entities.Tool;
+
 public class ToolDTO {
 
 	private Long id;
@@ -9,6 +11,15 @@ public class ToolDTO {
 	private String link;
 	private String description;
 	private List<String> tags;
+	
+	public ToolDTO() {}
+	
+	public ToolDTO(Tool tool) {
+		this.setId(tool.getId());
+		this.setTitle(tool.getTitle());
+		this.setLink(tool.getLink());
+		this.setDescription(tool.getDescription());		
+	}
 	
 	public Long getId() {
 		return id;

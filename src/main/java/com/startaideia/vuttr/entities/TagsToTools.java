@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 public class TagsToTools implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -18,7 +21,7 @@ public class TagsToTools implements Serializable{
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "tool_id")
+	@JoinColumn(name = "tool_id")	
 	private Tool tool;
 	
 	@ManyToOne

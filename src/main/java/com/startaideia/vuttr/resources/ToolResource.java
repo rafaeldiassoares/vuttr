@@ -1,8 +1,10 @@
 package com.startaideia.vuttr.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.startaideia.vuttr.dto.TagDTO;
 import com.startaideia.vuttr.dto.ToolDTO;
 import com.startaideia.vuttr.entities.Tag;
 import com.startaideia.vuttr.entities.TagsToTools;
@@ -36,20 +37,59 @@ public class ToolResource {
 	private TagsToToolsRepository tagsToToolsRepository;
 	
 	@GetMapping
-	public ResponseEntity<List<Tool>> findAll() {
-		return null;
+	public ResponseEntity<List<ToolDTO>> findAll() {
+		List<Tool> tools = toolRepositoriy.findAll();
+		List<String> tags;
+		List<ToolDTO> toolsDTO = new ArrayList<>();
+		ToolDTO toolDTO;
+		
+		for(Tool tool : tools) {
+			tags = new ArrayList<>();
+			for(TagsToTools tagToTool : tool.getTagsToTools()) {				
+				tags.add(tagToTool.getTags().getName());				
+			}
+			
+			toolDTO = new ToolDTO(tool);
+			toolDTO.setTags(tags);
+			toolsDTO.add(toolDTO);
+		}		
+		return ResponseEntity.ok(toolsDTO);		
+	}
+
+	@GetMapping("/tag/{tag}")
+	public ResponseEntity<List<ToolDTO>> findByTagName(@PathVariable String tag) {
+		List<Tool> tools = toolRepositoriy.findToolsByTagName(tag);
+		List<String> tags = new ArrayList<>();
+		List<ToolDTO> toolsDTO = new ArrayList<>();
+		ToolDTO toolDTO;
+		
+		for(Tool tool : tools) {
+			tags = new ArrayList<>();
+			for(TagsToTools tagToTool : tool.getTagsToTools()) {
+				tags.add(tagToTool.getTags().getName());				
+			}
+			
+			toolDTO = new ToolDTO(tool);
+			toolDTO.setTags(tags);
+			toolsDTO.add(toolDTO);
+		}		
+		return ResponseEntity.ok(toolsDTO);		
 	}
 	
-	@DeleteMapping("/id/{id}")
-	public void delete(@PathVariable Long id) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity delete(@PathVariable Long id) {		
+		toolRepositoriy.deleteTagsToToolsForIdTool(id);
 		toolRepositoriy.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
 	
 	@PostMapping( consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})	
-	public void save(@RequestBody ToolDTO toolDTO) {
+	public ResponseEntity<ToolDTO> save(@RequestBody ToolDTO toolDTO) {
 		Tag tagExists;
 		Tool tool;
 		TagsToTools tagsToTools;
+		List<String> tags = new ArrayList<String>();  
+		
 				
 		tool = toolRepositoriy.save(new Tool(toolDTO));
 		
@@ -59,7 +99,7 @@ public class ToolResource {
 			if(tagExists == null) {
 				tagExists = new Tag();
 				tagExists.setName(t);				
-				tagExists = tagRepository.save(tagExists);
+				tagExists = tagRepository.save(tagExists);				
 			}
 			
 			tagsToTools = new TagsToTools();
@@ -67,8 +107,11 @@ public class ToolResource {
 			tagsToTools.setTool(tool);
 			
 			tagsToToolsRepository.save(tagsToTools);
+			tags.add(tagExists.getName());
 		}		
 		
-		//return ResponseEntity.ok(new Tool());
+		toolDTO = new ToolDTO(tool);
+		toolDTO.setTags(tags);
+		return new ResponseEntity(toolDTO, HttpStatus.CREATED);
 	}
 }

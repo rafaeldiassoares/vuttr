@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.startaideia.vuttr.dto.ToolDTO;
 
 @Entity
@@ -22,7 +25,7 @@ public class Tool implements Serializable{
 	private String link;
 	private String description;
 
-	@OneToMany(mappedBy = "tool")
+	@OneToMany(mappedBy = "tool")	
 	private Set<TagsToTools> tagsToTools;
 	
 	public Tool() {

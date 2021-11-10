@@ -9,5 +9,5 @@ import com.startaideia.vuttr.entities.TagsToTools;
 
 @Repository
 public interface TagsToToolsRepository extends JpaRepository<TagsToTools, Long>{
-	
+		
 }
