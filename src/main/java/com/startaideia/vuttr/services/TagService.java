@@ -2,6 +2,8 @@ package com.startaideia.vuttr.services;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,6 @@ public class TagService {
 	}
 	
 	public Tag findById(Long id) {		
-		return tagRepository.findById(id).get();		
+		return tagRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Id not found " + id));		
 	}
 }

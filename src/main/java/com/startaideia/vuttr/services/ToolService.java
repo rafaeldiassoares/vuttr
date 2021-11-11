@@ -63,6 +63,7 @@ public class ToolService {
 			toolDTO.setTags(tags);
 			toolsDTO.add(toolDTO);
 		}		
+		
 		return toolsDTO;		
 	}
 	

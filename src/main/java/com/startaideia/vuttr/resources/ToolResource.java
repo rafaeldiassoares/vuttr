@@ -1,5 +1,6 @@
 package com.startaideia.vuttr.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,14 @@ public class ToolResource {
 	}
 
 	@GetMapping("/tag/{tag}")
-	public ResponseEntity<List<ToolDTO>> findByTagName(@PathVariable String tag) {	
-		return ResponseEntity.ok(toolService.findByTagName(tag));		
+	public ResponseEntity<List<ToolDTO>> findByTagName(@PathVariable String tag) {
+		List<ToolDTO> listTools = new ArrayList<>();
+		listTools = toolService.findByTagName(tag);
+		
+		if(listTools.size() > 0)
+			return ResponseEntity.ok(listTools);
+		else
+			return new ResponseEntity(listTools, HttpStatus.NOT_FOUND);
 	}
 	
 	@DeleteMapping("/{id}")

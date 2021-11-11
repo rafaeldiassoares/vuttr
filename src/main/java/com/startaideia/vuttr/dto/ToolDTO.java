@@ -21,6 +21,15 @@ public class ToolDTO {
 		this.setDescription(tool.getDescription());		
 	}
 	
+	public ToolDTO(Long id, String title, String link, String description, List<String> tags) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.link = link;
+		this.description = description;
+		this.tags = tags;
+	}
+
 	public Long getId() {
 		return id;
 	}
