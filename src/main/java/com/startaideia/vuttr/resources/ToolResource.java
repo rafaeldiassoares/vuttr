@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.startaideia.vuttr.dto.ToolDTO;
@@ -24,20 +25,20 @@ public class ToolResource {
 	@Autowired
 	private ToolService toolService;
 	
-	@GetMapping
-	public ResponseEntity<List<ToolDTO>> findAll() {		
+	@GetMapping("/")
+	public ResponseEntity<List<ToolDTO>> findAll() {
 		return ResponseEntity.ok(toolService.findAll());		
 	}
 
-	@GetMapping("/tag/{tag}")
-	public ResponseEntity<List<ToolDTO>> findByTagName(@PathVariable String tag) {
+	@GetMapping
+	public ResponseEntity<List<ToolDTO>> findByTagName(@RequestParam(value = "tag", required = false) String tag) {
 		List<ToolDTO> listTools = new ArrayList<>();
 		listTools = toolService.findByTagName(tag);
 		
 		if(listTools.size() > 0)
 			return ResponseEntity.ok(listTools);
 		else
-			return new ResponseEntity(listTools, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<ToolDTO>>(listTools, HttpStatus.NOT_FOUND);
 	}
 	
 	@DeleteMapping("/{id}")

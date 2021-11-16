@@ -1,7 +1,5 @@
 package com.startaideia.vuttr.controller;
 
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -55,7 +53,7 @@ public class ToollResourceTest {
 		RestAssuredMockMvc.given()
 			.accept(ContentType.JSON)
 		.when()
-			.get("/tools/tag/{tag}", "rest")
+			.get("/tools?tag={tag}", "rest")
 		.then()
 			.statusCode(HttpStatus.OK.value());
 	}
@@ -69,7 +67,7 @@ public class ToollResourceTest {
 		RestAssuredMockMvc.given()
 			.accept(ContentType.JSON)
 		.when()
-			.get("/tools/tag/{tag}", "rest")
+			.get("/tools?tag={tag}", "rest")
 		.then()
 			.statusCode(HttpStatus.NOT_FOUND.value());
 	}
