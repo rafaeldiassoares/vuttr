@@ -22,8 +22,7 @@ public class Tag implements Serializable{
 	@OneToMany(mappedBy = "tag")	
 	private Set<TagsToTools> tagsToTools;
 
-	public Tag() {		
-	}
+	public Tag() {}
 	
 	public Tag(String name) {
 		this.name = name;

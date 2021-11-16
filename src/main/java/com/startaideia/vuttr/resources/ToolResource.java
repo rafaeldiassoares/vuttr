@@ -24,21 +24,20 @@ public class ToolResource {
 	
 	@Autowired
 	private ToolService toolService;
-	
-	@GetMapping("/")
-	public ResponseEntity<List<ToolDTO>> findAll() {
-		return ResponseEntity.ok(toolService.findAll());		
-	}
 
 	@GetMapping
-	public ResponseEntity<List<ToolDTO>> findByTagName(@RequestParam(value = "tag", required = false) String tag) {
-		List<ToolDTO> listTools = new ArrayList<>();
-		listTools = toolService.findByTagName(tag);
-		
-		if(listTools.size() > 0)
-			return ResponseEntity.ok(listTools);
-		else
-			return new ResponseEntity<List<ToolDTO>>(listTools, HttpStatus.NOT_FOUND);
+	public ResponseEntity<List<ToolDTO>> find(@RequestParam(value = "tag", required = false) String tag) {
+		if(tag != null) {
+			List<ToolDTO> listTools = new ArrayList<>();
+			listTools = toolService.findByTagName(tag);
+			
+			if(listTools.size() > 0)
+				return ResponseEntity.ok(listTools);
+			else
+				return new ResponseEntity<List<ToolDTO>>(listTools, HttpStatus.NOT_FOUND);
+		} else {
+			return ResponseEntity.ok(toolService.findAll());
+		}
 	}
 	
 	@DeleteMapping("/{id}")
