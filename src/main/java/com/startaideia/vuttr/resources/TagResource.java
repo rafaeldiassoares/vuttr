@@ -15,6 +15,7 @@ import com.startaideia.vuttr.services.TagService;
 @RestController
 @RequestMapping(value = "/tags")
 public class TagResource {
+	
 	@Autowired
 	private TagService tagService;
 	
