@@ -19,11 +19,20 @@ public class TagResource {
 	@Autowired
 	private TagService tagService;
 	
+	/**
+	 * Buscar todas as Tags
+	 * @return Lista com todas as tags cadastradas
+	 */
 	@GetMapping
 	public ResponseEntity<List<TagDTO>> findAll() {		
 		return ResponseEntity.ok().body(tagService.findAll());
 	}
 	
+	/**
+	 * Buscar uma Tag por ID
+	 * @param id
+	 * @return Objeto Tag
+	 */
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TagDTO> findById(@PathVariable Long id) {
 		return ResponseEntity.ok().body(new TagDTO(tagService.findById(id)));

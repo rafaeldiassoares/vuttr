@@ -9,6 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+/**
+ * Esta classe foi necessária para construir o relacionamento "n to n" entre
+ * as entidades Tool e Tag, o uso da mesma possibilita o reuso de registros de
+ * tags para Tools diferentes, eliminando assim possível redundância de dados 
+ * na tabela Tag
+ * @author Rafael
+ *
+ */
 @Entity
 public class TagsToTools implements Serializable{
 	private static final long serialVersionUID = 1L;

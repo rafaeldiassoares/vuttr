@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.startaideia.vuttr.entities.Tool;
 
+/**
+ * Classe Data transfer object de Tool
+ * @author Rafael
+ *
+ */
 public class ToolDTO {
 
 	private Long id;
@@ -14,6 +19,11 @@ public class ToolDTO {
 	
 	public ToolDTO() {}
 	
+	/**
+	 * Construtor utilizado para fazer o casting entre 
+	 * Tool e ToolDTO
+	 * @param tool
+	 */
 	public ToolDTO(Tool tool) {
 		this.setId(tool.getId());
 		this.setTitle(tool.getTitle());

@@ -18,9 +18,16 @@ public class TagService {
 	@Autowired
 	private TagRepository tagRepository;
 	
+	/**
+	 * Busca todas as Tags cadastradas
+	 * @return
+	 */
 	public List<TagDTO> findAll() {
 		List<TagDTO> tagsDTO = new ArrayList<TagDTO>();
 		
+		/**
+		 * Transforma um lista de Tags em uma lista de TagDTO
+		 */
 		for(Tag tag : tagRepository.findAll()) {
 			tagsDTO.add(new TagDTO(tag));
 		}
@@ -28,6 +35,11 @@ public class TagService {
 		return tagsDTO;		
 	}
 	
+	/**
+	 * Busca uma Tag por ID
+	 * @param id
+	 * @return Objeto Tag
+	 */
 	public Tag findById(Long id) {		
 		return tagRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Id not found " + id));		
 	}

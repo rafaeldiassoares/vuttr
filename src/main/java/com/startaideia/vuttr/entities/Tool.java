@@ -32,6 +32,11 @@ public class Tool implements Serializable{
 		
 	}
 	
+	/**
+	 * Método contrutor para fazer casting do tipo
+	 * ToolDTO para o tipo Tool
+	 * @param toolDTO
+	 */
 	public Tool (ToolDTO toolDTO) {
 		this.setId(toolDTO.getId());
 		this.setTitle(toolDTO.getTitle());
