@@ -2,10 +2,9 @@ version: "3.7"
 services:
   app:
     image: 'docker-spring-boot-postgres:2.5.6'
+    build: .      
     ports:
-      - "8080:8080"
-    build:
-      context: .
+      - "3000:8080"
     container_name: app
     depends_on:
       - db
