@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>VUTTR API</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h3>VUTTR API(Very Useful Tools to Remember) </h3>
+           	<p>Repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags</p>
+        </div>
+        
+        <div class="container">
+        	<div>Resources:</div>
+        	<ul>
+        		<li><a href="/tools">GET : "/tools"</a></li>
+        		<li><a href="/tools?tag=node">GET : "/tools?tag={tag}"</a></li>
+        		<li>POST : "/tools"</li>
+        		<li>DELETE : "/tools/{id}"</li>
+        		<li><a href="/tags">GET : "/tags"</a></li>
+        		<li><a href="/tags/3">GET : "/tags/{id}"</a></li>
+        	</ul>
+        </div>
+        
+        <div class="container">
+        	<p>Acesse a documentação completa da API criada com o <a href="swagger-ui/index.html#/tag-resource">Swagger</a>
+        </div>
+    </header>
+    
+</body>
+</html>

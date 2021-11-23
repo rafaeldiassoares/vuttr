@@ -1,0 +1,44 @@
+INSERT INTO public.tag VALUES (1, 'organization');
+INSERT INTO public.tag VALUES (2, 'planning');
+INSERT INTO public.tag VALUES (3, 'collaboration');
+INSERT INTO public.tag VALUES (4, 'writing');
+INSERT INTO public.tag VALUES (5, 'calendar');
+INSERT INTO public.tag VALUES (6, 'api');
+INSERT INTO public.tag VALUES (7, 'json');
+INSERT INTO public.tag VALUES (8, 'schema');
+INSERT INTO public.tag VALUES (9, 'node');
+INSERT INTO public.tag VALUES (10, 'github');
+INSERT INTO public.tag VALUES (11, 'rest');
+INSERT INTO public.tag VALUES (12, 'web');
+INSERT INTO public.tag VALUES (13, 'framework');
+INSERT INTO public.tag VALUES (14, 'http2');
+INSERT INTO public.tag VALUES (15, 'https');
+INSERT INTO public.tag VALUES (16, 'localhost');
+INSERT INTO public.tag VALUES (17, 'organizing');
+INSERT INTO public.tag VALUES (18, 'webapps');
+INSERT INTO public.tag VALUES (19, 'domain');
+INSERT INTO public.tag VALUES (20, 'developer');
+INSERT INTO public.tag VALUES (21, 'proxy');
+
+INSERT INTO public.tool VALUES (1, 'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ', 'https://notion.so', 'Notion');
+INSERT INTO public.tool VALUES (2, 'Fake REST API based on a json schema. Useful for mocking and creating APIs for front-end devs to consume in coding challenges.', 'https://github.com/typicode/json-server', 'json-server');
+INSERT INTO public.tool VALUES (3, 'Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.', 'https://www.fastify.io/', 'fastify');
+
+INSERT INTO public.tags_to_tools VALUES (1, 1, 1);
+INSERT INTO public.tags_to_tools VALUES (2, 2, 1);
+INSERT INTO public.tags_to_tools VALUES (3, 3, 1);
+INSERT INTO public.tags_to_tools VALUES (4, 4, 1);
+INSERT INTO public.tags_to_tools VALUES (5, 5, 1);
+INSERT INTO public.tags_to_tools VALUES (6, 6, 2);
+INSERT INTO public.tags_to_tools VALUES (7, 7, 2);
+INSERT INTO public.tags_to_tools VALUES (8, 8, 2);
+INSERT INTO public.tags_to_tools VALUES (9, 9, 2);
+INSERT INTO public.tags_to_tools VALUES (10, 10, 2);
+INSERT INTO public.tags_to_tools VALUES (11, 11, 2);
+INSERT INTO public.tags_to_tools VALUES (12, 12, 3);
+INSERT INTO public.tags_to_tools VALUES (13, 13, 3);
+INSERT INTO public.tags_to_tools VALUES (14, 9, 3);
+INSERT INTO public.tags_to_tools VALUES (15, 14, 3);
+INSERT INTO public.tags_to_tools VALUES (16, 15, 3);
+INSERT INTO public.tags_to_tools VALUES (17, 16, 3);
+
