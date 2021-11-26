@@ -68,7 +68,7 @@ public class ToolResource {
 	 * @param id: id da tool em questão
 	 */
 	@DeleteMapping("/{id}")
-	public ResponseEntity delete(@PathVariable Long id) {		
+	public ResponseEntity<?> delete(@PathVariable Long id) {		
 		toolService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
